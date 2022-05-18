@@ -1,26 +1,23 @@
-# This is a basic workflow to help you get started with Actions
+# This yml is adapted from pull_request_test_build.yml
+name: build
 
-name: pre-release
-
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push but only for the master branch
   push:
-    branches: [ master ]
+    tags:
+      - "v*.*.*"
+    branches:
+      - "master"
+  pull_request:
+    branches:
+      - "*"
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  pre-release:
-    # The type of runner that the job will run on
+  build:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out repository code
         uses: actions/checkout@v2
 
@@ -28,29 +25,27 @@ jobs:
         run: |
           yarn install
           npm run build
-          zip release/hypercrx.zip -r build/*
+  checks:
+    runs-on: ubuntu-latest
 
-      - name: Test output
-        shell: pwsh
-        run: Test-Path release/hypercrx.crx | Should -Be $true
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
 
-      - name: Release the extension
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
-          files: |
-            release/hypercrx.crx
-            release/hypercrx.zip
+      - name: Format checks
+        run: |
+          yarn install
+          npm run check
 
-      - name: Update oss
-        uses: tvrcgo/upload-to-oss@v0.1.1
-        with:
-          key-id: ${{ secrets.accessKeyId }}
-          key-secret: ${{ secrets.accessKeySecret }}
-          region: ${{ secrets.region }}
-          bucket: ${{ secrets.bucket }}
-          asset-path: ./publish
-          target-path: ${{ secrets.deployPath }}
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+    # Generate packages in Release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+    needs: [build, checks]
+
+
