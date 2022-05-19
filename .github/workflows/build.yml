@@ -35,7 +35,7 @@ jobs:
       - name: Format checks
         run: |
           yarn install
-          npm run check
+          npm run prettier:check
 
   release:
     if: startsWith(github.ref, 'refs/tags/')
@@ -43,7 +43,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-    # Generate packages in Release
+      # Generate packages in Release
       - name: Release
         uses: softprops/action-gh-release@v1
     needs: [build, checks]
