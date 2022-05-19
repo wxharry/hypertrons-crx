@@ -10,6 +10,8 @@
   "author": "wxharry",
   "license": "ISC",
   "dependencies": {
-    "execa": "^6.1.0"
+    "execa": "^6.1.0",
+    "minimist": "^1.2.6",
+    "semver": "^7.3.7"
   }
 }
