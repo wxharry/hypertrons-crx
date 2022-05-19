@@ -2,8 +2,8 @@ import zipFolder from 'zip-folder';
 import chromeWebstoreUpload from 'chrome-webstore-upload';
 import fs from 'fs';
 
-let folderName = '../build/';
-let zipName = '../release/hypercrx.zip';
+let folderName = 'build/';
+let zipName = 'release/hypercrx.zip';
 
 // getting all the credentials and IDs from environment
 let REFRESH_TOKEN = process.env.REFRESH_TOKEN;

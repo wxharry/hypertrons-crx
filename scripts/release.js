@@ -7,10 +7,10 @@ async function bump({ version }) {
   await writeJson('package.json', pkg);
 
   // Update github issue templates
-  processFile('publish/update_information.json', (content) =>
+  processFile('../publish/update_information.json', (content) =>
     content.replace(/(\"latest_version\")\:.*?,/g, `$1: "${version}",`)
   );
-  processFile('src/mock/background.data.ts', (content) =>
+  processFile('../src/mock/background.data.ts', (content) =>
     content.replace(/(latest_version)\:.*?,/g, `$1: '${version}',`)
   );
 }

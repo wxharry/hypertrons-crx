@@ -45,6 +45,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      - name: zip hypercrx.zip
+        run: zip release/hypercrx.zip -r build/*
+
       - name: Release pre-Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
