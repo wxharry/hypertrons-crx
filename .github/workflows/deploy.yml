@@ -4,7 +4,6 @@ name: deploy
 
 on:
   workflow_dispatch:
-    branches: '*'
     inputs:
       version:
         description: 'Input a new version number to release. (e.g. 1.2.3)'
