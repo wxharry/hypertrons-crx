@@ -21,5 +21,6 @@
       "labels": ["dependencies"]
     }
   ],
+  "template": "${{CHANGELOG}}\n",
   "pr_template": "- ${{TITLE}}  #${{NUMBER}}"
 }
