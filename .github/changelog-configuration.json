@@ -1,26 +1,26 @@
 {
   "categories": [
     {
-      "title": "## What's New Features",
+      "title": "### What's New Features",
       "labels": ["kind/feature"]
     },
     {
-      "title": "## Refactor",
+      "title": "### Refactor",
       "labels": ["kind/enhancement"]
     },
     {
-      "title": "## Bug Fixes",
+      "title": "### Bug Fixes",
       "labels": ["kind/bug"]
     },
     {
-      "title": "## Document changes",
+      "title": "### Document changes",
       "labels": ["area/document"]
     },
     {
-      "title": "## 📦 Dependencies",
+      "title": "### 📦 Dependencies",
       "labels": ["dependencies"]
     }
   ],
-  "template": "${{CHANGELOG}}\n",
+  "template": "## [${{TO_TAG}}](${{RELEASE_DIFF}})(${{TO_TAG_DATE}})\n${{CHANGELOG}}",
   "pr_template": "- ${{TITLE}}  #${{NUMBER}}"
 }
