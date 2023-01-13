@@ -1,3 +1,4 @@
+
 - no changes
 ## [1.8.3](https://github.com/hypertrons/hypertrons-crx/compare/v1.8.2...v1.8.3) (2023-01-09)
 
