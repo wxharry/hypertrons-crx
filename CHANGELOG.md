@@ -1,3 +1,8 @@
+## [v1.6.7](https://github.com/wxharry/hypertrons-crx/compare/v1.6.6...v1.6.7)()
+### Refactor
+
+- Test/changelog  #10
+
 ## What's New Features
 
 - feat: make some changes  #8
