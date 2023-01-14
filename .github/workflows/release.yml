@@ -27,6 +27,17 @@ jobs:
           yarn install
           yarn run update-version ${{github.event.inputs.version}}
 
+      - name: Config Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      
+      - name: Add a new tag
+        run: |
+          git add .
+          git commit -m "chore(release): v${{github.event.inputs.version}}"
+          git tag -a v${{github.event.inputs.version}} -m "Release v${{github.event.inputs.version}}"
+
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v3
@@ -38,15 +49,15 @@ jobs:
       
       - name: Update CHANGELOG.md
         run: |
-          echo -e "${{steps.github_release.outputs.changelog}}$(cat CHANGELOG.md)" > CHANGELOG.md
-
-      - name: Commit and tag
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          echo -e "${{steps.github_release.outputs.changelog}}\n$(cat CHANGELOG.md)" > CHANGELOG.md
           git add .
-          git commit -m "chore(release): v${{github.event.inputs.version}}"
-          git tag -a v${{github.event.inputs.version}} -m "Release v${{github.event.inputs.version}}"
+          git commit --amend --no-edit
+      
+      - name: Update tag
+        run: |
+          git tag -f -a v${{github.event.inputs.version}} -m "Release v${{github.event.inputs.version}}"
+
+      - name: Push to remote repository
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
           git push origin
         env:
