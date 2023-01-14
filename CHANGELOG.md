@@ -1,3 +1,8 @@
+## [v1.6.9](https://github.com/wxharry/hypertrons-crx/compare/v1.6.8...v1.6.9)(2023-01-14T00:21:48.000Z)
+### Refactor
+
+* Test/changelog by wxharry in [#12](https://github.com/wxharry/hypertrons-crx/pull/12)
+
 ## [v1.6.8](https://github.com/wxharry/hypertrons-crx/compare/v1.6.7...v1.6.8)(2023-01-13T23:47:11.000Z)
 ### Refactor
 
