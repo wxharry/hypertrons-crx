@@ -1,3 +1,8 @@
+* no change## [v1.6.11](https://github.com/wxharry/hypertrons-crx/compare/v1.6.10...v1.6.11)(2023-01-14T01:24:09.000Z)
+### Bug Fixes
+
+* fix: remove set up release body by wxharry in [#14](https://github.com/wxharry/hypertrons-crx/pull/14)
+
 ## [v1.6.10](https://github.com/wxharry/hypertrons-crx/compare/v1.6.9...v1.6.10)(2023-01-14T00:49:33.000Z)
 ### Refactor
 
