@@ -1,3 +1,6 @@
+## [1.6.15](https://github.com/wxharry/hypertrons-crx/compare/v1.6.14...1.6.15)()
+* no change
+
 ## [v1.6.13](https://github.com/wxharry/hypertrons-crx/compare/v1.6.12...v1.6.13)(2023-01-14T01:51:53.000Z)
 ### Bug Fixes
 
