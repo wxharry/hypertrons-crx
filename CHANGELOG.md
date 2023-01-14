@@ -1,3 +1,9 @@
+# Version: 1.6.16
+
+* [#20](https://github.com/wxharry/hypertrons-crx/pull/20): perf: new changelog generator
+* [#21](https://github.com/wxharry/hypertrons-crx/pull/21): fix: missing release_version
+
+
 ## [1.6.15](https://github.com/wxharry/hypertrons-crx/compare/v1.6.14...1.6.15)()
 * no change
 
