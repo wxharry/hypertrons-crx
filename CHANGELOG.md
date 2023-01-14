@@ -1,3 +1,9 @@
+## [v1.6.13](https://github.com/wxharry/hypertrons-crx/compare/v1.6.12...v1.6.13)(2023-01-14T01:51:53.000Z)
+### Bug Fixes
+
+* chore: add new attribute in release by wxharry in [#15](https://github.com/wxharry/hypertrons-crx/pull/15)
+
+
 * no change## [v1.6.11](https://github.com/wxharry/hypertrons-crx/compare/v1.6.10...v1.6.11)(2023-01-14T01:24:09.000Z)
 ### Bug Fixes
 
