@@ -58,6 +58,7 @@ jobs:
           git tag -f -a v${{github.event.inputs.version}} -m "Release v${{github.event.inputs.version}}"
 
       - name: Push to remote repository
+        run: |
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
           git push origin
         env:
