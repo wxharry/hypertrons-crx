@@ -22,5 +22,6 @@
     }
   ],
   "template": "## [${{TO_TAG}}](${{RELEASE_DIFF}})(${{TO_TAG_DATE}})\n${{CHANGELOG}}",
-  "pr_template": "- ${{TITLE}}  #${{NUMBER}}"
+  "empty_template": "* no change",
+  "pr_template": "* ${{TITLE}} by ${{AUTHOR}} in [#${{NUMBER}}](${{URL}})"
 }
