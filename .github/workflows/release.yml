@@ -25,6 +25,8 @@ jobs:
       - name: Generate Changelog
         uses: saadmk11/changelog-ci@v1.1.1
         id: changelog-ci
+        with:
+          release_version: ${{github.event.inputs.version}}
       
       - name: Update CHANGELOG.md
         run: |
