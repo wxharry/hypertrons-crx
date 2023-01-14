@@ -1,0 +1,26 @@
+changelog_type: 'pull_request'
+header_prefix: 'Version:'
+commit_changelog: false
+comment_changelog: false
+include_unlabeled_changes: false
+version_regex: 'v?([0-9]{1,2})+[.]+([0-9]{1,2})+[.]+([0-9]{1,2})\s\(\d{1,2}-\d{1,2}-\d{4}\)'
+exclude_labels:
+  - bot
+  - dependabot
+  - ci
+group_config:
+  - title: Bug Fixes
+    labels:
+      - kind/bug
+  - title: Code Improvements
+    labels:
+      - kind/enhancement
+  - title: New Features
+    labels:
+      - kind/feature
+  - title: Documentation Updates
+    labels:
+      - area/documentation
+  - title: Dependencies
+    labels:
+      - dependencies

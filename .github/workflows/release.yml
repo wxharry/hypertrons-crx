@@ -22,6 +22,14 @@ jobs:
         with:
           cache: "yarn"
 
+      - name: Generate Changelog
+        uses: saadmk11/changelog-ci@v1.1.1
+        id: changelog-ci
+      
+      - name: Update CHANGELOG.md
+        run: |
+          echo -e "${{steps.changelog-ci.outputs.changelog}}\n$(cat CHANGELOG.md)" > CHANGELOG.md
+
       - name: Bump version
         run: |
           yarn install
@@ -37,29 +45,6 @@ jobs:
           git add .
           git commit -m "chore(release): v${{github.event.inputs.version}}"
           git tag -a v${{github.event.inputs.version}} -m "Release v${{github.event.inputs.version}}"
-
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
-        with:
-          configuration: ".github/changelog-configuration.json"
-          fetchReleaseInformation: true
-          toTag: ${{github.event.inputs.version}}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Update CHANGELOG.md
-        run: |
-          echo -e "${{steps.github_release.outputs.changelog}}\n$(cat CHANGELOG.md)" > CHANGELOG.md
-          git add .
-          git commit --amend --no-edit
-      
-      - name: Update tag
-        run: |
-          git tag -f -a v${{github.event.inputs.version}} -m "Release v${{github.event.inputs.version}}"
-
-      - name: Push to remote repository
-        run: |
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
           git push origin
         env:
