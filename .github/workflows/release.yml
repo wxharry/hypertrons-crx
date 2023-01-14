@@ -44,6 +44,7 @@ jobs:
         with:
           configuration: ".github/changelog-configuration.json"
           fetchReleaseInformation: true
+          toTag: ${{github.event.inputs.version}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
