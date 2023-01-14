@@ -22,28 +22,26 @@ jobs:
         with:
           cache: "yarn"
 
-      - name: Generate Changelog
-        uses: saadmk11/changelog-ci@v1.1.1
-        id: changelog-ci
-        with:
-          release_version: ${{github.event.inputs.version}}
-      
-      - name: Update CHANGELOG.md
-        run: |
-          echo -e "${{steps.changelog-ci.outputs.changelog}}\n$(cat CHANGELOG.md)" > CHANGELOG.md
-
       - name: Bump version
         run: |
           yarn install
           yarn run update-version ${{github.event.inputs.version}}
 
-      - name: Config Git
+      - name: Generate Changelog
+        uses: saadmk11/changelog-ci@v1.1.1
+        id: changelog-ci
+        with:
+          release_version: ${{github.event.inputs.version}}
+          config_file: .github/changelog-configuration.yml
+      
+      - name: Update CHANGELOG.md
+        run: |
+          echo -e "${{steps.changelog-ci.outputs.changelog}}\n$(cat CHANGELOG.md)" > CHANGELOG.md
+
+      - name: Update changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      
-      - name: Add a new tag
-        run: |
           git add .
           git commit -m "chore(release): v${{github.event.inputs.version}}"
           git tag -a v${{github.event.inputs.version}} -m "Release v${{github.event.inputs.version}}"
