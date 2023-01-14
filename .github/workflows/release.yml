@@ -9,7 +9,7 @@ on:
         description: 'Input a new version number to release. (e.g. 1.2.3)'
         required: true
 
-run-name: Release ${{github.event.inputs.version}}
+run-name: Release v${{github.event.inputs.version}}
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -32,6 +32,7 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v3
         with:
           configuration: ".github/changelog-configuration.json"
+          fetchReleaseInformation: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
