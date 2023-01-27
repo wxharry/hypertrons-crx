@@ -33,6 +33,11 @@ jobs:
         run: |
           echo ${{ github.steps.bump-version}}
           exit 1
+      
+      - name: check tags
+        run: |
+          git pull --tag
+          git tag -l
 
       - name: Update changelog
         run: |
