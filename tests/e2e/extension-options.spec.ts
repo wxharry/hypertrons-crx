@@ -3,7 +3,26 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-const extensionPath = path.resolve(process.cwd(), 'build');
+const resolveExtensionPath = () => {
+  const root = process.cwd();
+  const candidates = [
+    process.env.PW_EXTENSION_PATH,
+    path.resolve(root, '.output/chrome-mv3'),
+    path.resolve(root, '.output/chrome-mv3-dev'),
+    path.resolve(root, 'build'),
+  ].filter((candidate): candidate is string => Boolean(candidate));
+
+  const selected = candidates.find((candidate) => fs.existsSync(path.join(candidate, 'manifest.json')));
+  if (!selected) {
+    throw new Error(
+      'No extension manifest found. Build the extension first with `yarn build` (WXT) or set PW_EXTENSION_PATH.'
+    );
+  }
+
+  return selected;
+};
+
+const extensionPath = resolveExtensionPath();
 const runHeadless = process.env.PW_E2E_HEADLESS === '1';
 
 test.describe('extension options page', () => {

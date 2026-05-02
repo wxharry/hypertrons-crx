@@ -1,4 +1,4 @@
-import { importedFeatures } from '../README.md';
+import { importedFeatures } from './imported-features';
 
 export type HypercrxOptions = typeof defaults;
 

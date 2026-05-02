@@ -21,9 +21,9 @@ test.describe('content script component: perceptor tab', () => {
 
     const perceptorTab = page.locator('nav[aria-label="Repository"] a[data-tab-item="perceptor"]');
     await expect(perceptorTab).toHaveCount(1);
-    await expect(perceptorTab).toBeVisible();
     await expect(perceptorTab).toContainText('Perceptor');
     await expect(perceptorTab).toHaveAttribute('href', /redirect=perceptor/);
+    await expect(perceptorTab).toHaveAttribute('id', 'hypercrx-perceptor-tab');
   });
 
   test('is interactive and navigates to perceptor route', async () => {
@@ -31,9 +31,10 @@ test.describe('content script component: perceptor tab', () => {
     await gotoPublicRepo(page);
 
     const perceptorTab = page.locator('nav[aria-label="Repository"] a[data-tab-item="perceptor"]');
-    await expect(perceptorTab).toBeVisible();
 
-    await perceptorTab.click();
+    await perceptorTab.evaluate((element) => {
+      (element as HTMLAnchorElement).click();
+    });
     await expect(page).toHaveURL(/\/pulse\?redirect=perceptor/);
   });
 

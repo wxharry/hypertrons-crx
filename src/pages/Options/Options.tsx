@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Checkbox, Radio, Space, Row, Col } from 'antd';
-import { importedFeatures } from '../../../README.md';
+import { importedFeatures } from '../../imported-features';
 import optionsStorage, { HypercrxOptions } from '../../options-storage';
 import { HYPERCRX_GITHUB } from '../../constant';
 import TooltipTrigger from '../../components/TooltipTrigger';

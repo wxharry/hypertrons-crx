@@ -29,18 +29,19 @@ test.describe('content script component: fast-pr', () => {
     await gotoPublicRepo(page);
 
     await page.evaluate(() => {
-      window.postMessage(
-        {
-          matchedUrl: {
-            filePath: 'README.md',
-            repoName: 'hypertrons/hypertrons-crx',
-            branch: 'master',
-            platform: 'Github',
-            horizontalRatio: 0.86,
-            verticalRatio: 0.84,
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: {
+            matchedUrl: {
+              filePath: 'README.md',
+              repoName: 'hypertrons/hypertrons-crx',
+              branch: 'master',
+              platform: 'Github',
+              horizontalRatio: 0.86,
+              verticalRatio: 0.84,
+            },
           },
-        },
-        '*'
+        })
       );
     });
 
@@ -55,12 +56,13 @@ test.describe('content script component: fast-pr', () => {
 
     await page.evaluate(() => {
       localStorage.removeItem('matchedUrlCache');
-      window.postMessage(
-        {
-          matchedFun: 'matched-by-rule',
-          isUpdated: true,
-        },
-        '*'
+      window.dispatchEvent(
+        new MessageEvent('message', {
+          data: {
+            matchedFun: 'matched-by-rule',
+            isUpdated: true,
+          },
+        })
       );
     });
 
