@@ -40,20 +40,17 @@ const Options = (): JSX.Element => {
 
   function buildFeatureCheckbox(name: FeatureName, isEnabled: boolean) {
     return (
-      <Col span={24}>
-        <Checkbox
-          key={name}
-          defaultChecked={isEnabled}
-          onChange={async (e) => {
-            await optionsStorage.set({
-              [`hypercrx-${name}`]: e.target.checked,
-            });
-            setOptions(await optionsStorage.getAll());
-          }}
-        >
-          {name}
-        </Checkbox>
-      </Col>
+      <Checkbox
+        defaultChecked={isEnabled}
+        onChange={async (e) => {
+          await optionsStorage.set({
+            [`hypercrx-${name}`]: e.target.checked,
+          });
+          setOptions(await optionsStorage.getAll());
+        }}
+      >
+        {name}
+      </Checkbox>
     );
   }
 
@@ -79,7 +76,7 @@ const Options = (): JSX.Element => {
             <div className="Box">
               <div className="Box-header">
                 <h2 className="Box-title">{t('options_locale_title')}</h2>
-                <TooltipTrigger overlayClassName="custom-tooltip-option" content={t('options_locale_toolTip')} />
+                <TooltipTrigger classNames={{ root: 'custom-tooltip-option' }} content={t('options_locale_toolTip')} />
               </div>
               <div style={stacksStyleOptions.settingStack}>
                 <p>{t('options_locale_toolTip')} :</p>
@@ -110,14 +107,19 @@ const Options = (): JSX.Element => {
             <div className="Box">
               <div className="Box-header">
                 <h2 className="Box-title">{t('options_components_title')}</h2>
-                <TooltipTrigger overlayClassName="custom-tooltip-option" content={t('options_components_toolTip')} />
+                <TooltipTrigger
+                  classNames={{ root: 'custom-tooltip-option' }}
+                  content={t('options_components_toolTip')}
+                />
               </div>
               <Row style={stacksStyleOptions.settingStack} gutter={[16, 10]}>
                 <p>{t('options_components_toolTip')} :</p>
 
-                {importedFeatures.map((name: FeatureName) => {
-                  return buildFeatureCheckbox(name, options[`hypercrx-${name}`]);
-                })}
+                {importedFeatures.map((name: FeatureName) => (
+                  <Col span={24} key={name}>
+                    {buildFeatureCheckbox(name, options[`hypercrx-${name}`])}
+                  </Col>
+                ))}
               </Row>
             </div>
           </Col>

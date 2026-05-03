@@ -2,8 +2,9 @@ import { chromium, type BrowserContext, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { resolveExtensionPath } from '../helpers/resolve-extension-path';
 
-const extensionPath = path.resolve(process.cwd(), 'build');
+const extensionPath = resolveExtensionPath();
 const runHeadless = process.env.PW_E2E_HEADLESS === '1';
 
 export const githubRepoUrl = 'https://github.com/hypertrons/hypertrons-crx';
