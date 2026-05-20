@@ -1,6 +1,7 @@
 {
+  "extends": "./.wxt/tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
@@ -10,13 +11,11 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": false,
     "jsx": "react",
-    "experimentalDecorators": true,
-    "downlevelIteration": true
+    "experimentalDecorators": true
   },
-  "include": ["src"],
+  "include": ["src", ".wxt/wxt.d.ts"],
   "exclude": ["build", "node_modules"]
 }
