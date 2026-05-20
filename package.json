@@ -27,7 +27,7 @@
     "test:e2e:headed": "playwright test --headed",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss}\"",
     "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss}\"",
-    "pretty-quick:check": "pretty-quick --staged --check --pattern \"**/*.{js,jsx,ts,tsx,json,css,scss}\"",
+    "pretty-quick": "pretty-quick --staged --pattern \"**/*.{js,jsx,ts,tsx,json,css,scss}\"",
     "prepare": "husky install",
     "update-version": "node scripts/bump-version.cjs"
   },
