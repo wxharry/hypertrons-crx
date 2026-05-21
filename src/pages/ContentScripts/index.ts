@@ -18,7 +18,6 @@ import './features/perceptor-tab/gitee-index';
 import './features/perceptor-layout';
 import './features/perceptor-layout/gitee-index';
 import './features/repo-networks';
-import './features/developer-networks';
 import './features/oss-gpt';
 import './features/repo-activity-racing-bar';
 import './features/repo-activity-racing-bar/gitee-index';

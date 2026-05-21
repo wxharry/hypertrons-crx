@@ -1,9 +1,8 @@
 export const importedFeatures: FeatureName[] = [
-  'developer-activity-openrank-trends',
-  'developer-activity-openrank-trends/gitee-index',
+  'developerActivityOpenrankTrends.content',
   'developer-hovercard-info',
   'developer-hovercard-info/gitee-index',
-  'developer-networks',
+  'developerNetworks.content',
   'fast-pr',
   'oss-gpt',
   'perceptor-layout',

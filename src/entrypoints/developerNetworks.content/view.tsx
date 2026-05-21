@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
-import optionsStorage, { HypercrxOptions, defaults } from '../../../../options-storage';
-import { iconDeveloperNetwork, iconRepoNetwork, iconInterestNetwork } from './icon-svg-path';
+import optionsStorage, { HypercrxOptions, defaults } from '../../options-storage';
+import { iconDeveloperNetwork, iconRepoNetwork, iconInterestNetwork } from '../../components/Icons/icon-svg-path';
 import './react-modal.scss';
 import { useTranslation } from 'react-i18next';
-import '../../../../helpers/i18n';
-import OSGraph from '../../../../components/OSGraph';
+import '../../helpers/i18n';
+import OSGraph from '../../components/OSGraph';
+import osGraphLogo from '../../assets/img/osGraphLogo.png';
+
 interface Props {
   userName: string;
 }
+
 const OSGraphStyle = {
   width: '100%',
   height: '400px',
   border: 'none',
   marginTop: '5px',
 };
+
 const logoStyle = {
   cssFloat: 'right',
   marginRight: '50px',
@@ -28,13 +32,13 @@ const baseOSGraphUrls = {
   openSourceInterestsNetwork:
     'https://osgraph.com/graphs/os-interest/github/{userName}?lang={lang}&repo-limit=3&topic-limit=5',
 };
+
 const View = ({ userName }: Props): JSX.Element => {
   const [options, setOptions] = useState<HypercrxOptions>(defaults);
   const [showOpenSourcePartnersNetwork, setShowOpenSourcePartnersNetwork] = useState(false);
   const [showDevelopmentActivityNetwork, setShowDevelopmentActivityNetwork] = useState(false);
   const [showOpenSourceInterestsNetwork, setShowOpenSourceInterestsNetwork] = useState(false);
   const { t, i18n } = useTranslation();
-  const osGraphLogo = chrome.runtime.getURL('osGraphLogo.png');
   const OSGraphUrls = Object.fromEntries(
     Object.entries(baseOSGraphUrls).map(([key, url]) => [
       key,
