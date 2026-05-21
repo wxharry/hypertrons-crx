@@ -56,7 +56,9 @@ test.describe('content script component: developer activity openrank trends', ()
     const page = await context.newPage();
     await page.goto(`https://github.com/${developerName}`, { waitUntil: 'domcontentloaded' });
 
-    const featureRoot = page.locator('#hypercrx-developer-activity-openrank-trends');
+    const featureRoot = page.locator('div.border-top.color-border-secondary.pt-3.mt-3').filter({
+      has: page.locator('h2.h4.mb-3', { hasText: 'Activity & OpenRank Trends' }),
+    });
     await expect(featureRoot).toHaveCount(1);
     await expect(featureRoot.locator('h2.h4.mb-3')).toContainText('Activity & OpenRank Trends');
   });
@@ -65,7 +67,9 @@ test.describe('content script component: developer activity openrank trends', ()
     const page = await context.newPage();
     await page.goto(`https://github.com/${developerName}`, { waitUntil: 'domcontentloaded' });
 
-    const featureRoot = page.locator('#hypercrx-developer-activity-openrank-trends');
+    const featureRoot = page.locator('div.border-top.color-border-secondary.pt-3.mt-3').filter({
+      has: page.locator('h2.h4.mb-3', { hasText: 'Activity & OpenRank Trends' }),
+    });
     await expect(featureRoot).toHaveCount(1);
     await expect(featureRoot.locator('canvas')).toHaveCount(1);
   });
@@ -75,6 +79,6 @@ test.describe('content script component: developer activity openrank trends', ()
     await page.goto('https://example.com', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1000);
 
-    await expect(page.locator('#hypercrx-developer-activity-openrank-trends')).toHaveCount(0);
+    await expect(page.locator('div.border-top.color-border-secondary.pt-3.mt-3')).toHaveCount(0);
   });
 });
