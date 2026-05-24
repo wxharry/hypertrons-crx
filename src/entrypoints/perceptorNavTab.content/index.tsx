@@ -6,7 +6,7 @@ import iconSvgPath from './icon-svg-path';
 const featureId: FeatureId = 'hypercrx-perceptor-tab';
 
 const mountGithub = async () => {
-  if (!isGithub()) return;
+  if (document.getElementById(featureId) || !isGithub()) return;
 
   // find insights tab with id = 'insights-tab'
   const insightsTab = document.querySelector('a#insights-tab')?.parentElement as HTMLLIElement | null;
@@ -38,6 +38,8 @@ const mountGithub = async () => {
     if (svgIcon) {
       svgIcon.innerHTML = iconSvgPath;
     }
+
+    // TODO: Replace other labels from 'insights' to 'perceptor'
   }
 
   // Insert after insights tab
@@ -127,7 +129,7 @@ function syncHiddenStates(primaryElement: HTMLElement | null, secondaryElement: 
 
 export default defineContentScript({
   matches: ['*://*.github.com/*', '*://*.gitee.com/*'],
-  runAt: 'document_idle',
+  runAt: 'document_end',
   async main(ctx) {
     const ui = await createIntegratedUi(ctx, {
       position: 'inline',
@@ -140,9 +142,7 @@ export default defineContentScript({
         }
         return null;
       },
-      onMount(container) {
-        console.log('Mounting Perceptor Tab with container:', container);
-        container.id = featureId;
+      onMount() {
         if (isGithub()) return mountGithub();
         if (isGitee()) return mountGitee();
       },
@@ -178,8 +178,16 @@ export default defineContentScript({
     // GitHub uses Turbo which doesn't trigger a full page reload on navigation, so we need to listen for Turbo events to re-mount our UI
     // Tried using 'wxt:locationchange' but events are triggered before the page updated.
     ctx.addEventListener(document, 'turbo:load', () => {
-      if (document.getElementById(featureId)) return;
       ui.mount();
+      const url = window.location.href;
+      const perceptorHref = document.querySelector('#hypercrx-perceptor-tab') as HTMLAnchorElement;
+      const toDeselect = !url.includes('redirect=perceptor')
+        ? perceptorHref
+        : (perceptorHref.parentElement?.previousElementSibling?.querySelector('a') as HTMLAnchorElement | null);
+      if (toDeselect) {
+        toDeselect.classList.remove('selected');
+        toDeselect.removeAttribute('aria-current');
+      }
     });
   },
 });
