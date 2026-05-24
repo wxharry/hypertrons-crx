@@ -13,8 +13,6 @@ import './features/repo-pr-tooltip';
 import './features/repo-pr-tooltip/gitee-index';
 import './features/repo-issue-tooltip';
 import './features/repo-issue-tooltip/gitee-index';
-import './features/perceptor-tab';
-import './features/perceptor-tab/gitee-index';
 import './features/perceptor-layout';
 import './features/perceptor-layout/gitee-index';
 import './features/repo-networks';

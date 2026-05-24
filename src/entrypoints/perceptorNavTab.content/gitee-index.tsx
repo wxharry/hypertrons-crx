@@ -1,11 +1,12 @@
 import elementReady from 'element-ready';
-import iconSvgPath from './icon-svg-path';
-import features from '../../../../feature-manager';
-import isPerceptor from '../../../../helpers/is-perceptor';
-import { isPublicRepoWithMeta } from '../../../../helpers/get-gitee-repo-info';
-import isGitee from '../../../../helpers/is-gitee';
 
-const featureId = features.getFeatureID(import.meta.url);
+import iconSvgPath from './icon-svg-path';
+import features from '../../feature-manager';
+import isPerceptor from '../../helpers/is-perceptor';
+import { isPublicRepoWithMeta } from '../../helpers/get-gitee-repo-info';
+import isGitee from '../../helpers/is-gitee';
+
+const featureId: FeatureId = 'hypercrx-perceptor-tab';
 
 const addPerceptorTab = async (): Promise<void | false> => {
   // Wait for the secondary navigation menu to load
@@ -69,8 +70,10 @@ const init = async (): Promise<void> => {
   }
 };
 
-features.add(featureId, {
-  asLongAs: [isGitee, isPublicRepoWithMeta],
-  awaitDomReady: false,
-  init,
-});
+export const initGiteePerceptorTab = (): void => {
+  features.add(featureId, {
+    asLongAs: [isGitee, isPublicRepoWithMeta],
+    awaitDomReady: false,
+    init,
+  });
+};
