@@ -5,8 +5,6 @@ export const importedFeatures: FeatureName[] = [
   'developerNetworks.content',
   'fast-pr',
   'oss-gpt',
-  'perceptor-layout',
-  'perceptor-layout/gitee-index',
   'perceptor-tab',
   'perceptor-tab/gitee-index',
   'repo-activity-openrank-trends',

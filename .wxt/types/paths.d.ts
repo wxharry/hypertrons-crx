@@ -8,6 +8,7 @@ declare module "wxt/browser" {
     | "/background.js"
     | "/content-scripts/developerActivityOpenrankTrends.js"
     | "/content-scripts/developerNetworks.js"
+    | "/content-scripts/perceptorLayout.js"
     | "/content-scripts/perceptorNavTab.js"
     | "/main.png"
     | "/openDiggerLogo.png"
