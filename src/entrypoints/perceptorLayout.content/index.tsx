@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot, type Root } from 'react-dom/client';
+import { isRepo } from 'github-url-detection';
 
 import View from './view';
 import isGithub from '../../helpers/is-github';
@@ -20,13 +21,17 @@ export default defineContentScript({
     const ui = createIntegratedUi(ctx, {
       position: 'inline',
       anchor: () => {
+        if (!isRepo()) {
+          return document.body;
+        }
         if (isGithub()) {
           return document.querySelector('#repo-content-turbo-frame') as HTMLElement | null;
         }
         if (isGitee()) {
           return document.querySelector('.site-content') as HTMLElement | null;
         }
-        return null;
+        // Use document.body as safe fallback to prevent mounting from throwing when anchor is missing.
+        return document.body;
       },
       onMount(container) {
         if (!isPerceptor()) return;

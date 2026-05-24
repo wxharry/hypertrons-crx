@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { createRoot } from 'react-dom/client';
+import * as pageDetect from 'github-url-detection';
 
 import {
   getDeveloperName,
@@ -69,19 +70,29 @@ export default defineContentScript({
     const ui = await createIntegratedUi(ctx, {
       position: 'inline',
       anchor: () => {
-        if (isGithub()) {
+        if (isGithub() && pageDetect.isUserProfile()) {
           return '.js-profile-editable-area';
         }
         if (isGitee()) {
           return '.users__personal-info';
         }
-        return null;
+        // Provide a safe fallback anchor to avoid mount errors. onMount will still guard
+        // execution so the feature won't run on non-profile pages.
+        return document.body;
       },
       append: 'after',
       onMount(container) {
-        container.id = featureId;
-        if (isGithub()) return mountGithub(container);
-        if (isGitee()) return mountGitee(container);
+        // Double-check page type to avoid running on non-profile pages even if the anchor
+        // was present. This prevents errors when anchor detection misfires.
+        if (isGithub() && typeof mountGithub === 'function') {
+          container.id = featureId;
+          return mountGithub(container);
+        }
+        if (isGitee() && typeof mountGitee === 'function') {
+          container.id = featureId;
+          return mountGitee(container);
+        }
+        return;
       },
       onRemove: (root) => {
         void Promise.resolve(root).then((mountedRoot) => mountedRoot?.unmount());

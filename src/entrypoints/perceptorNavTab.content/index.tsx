@@ -2,6 +2,7 @@
 import isGithub from '@/helpers/is-github';
 import isGitee from '@/helpers/is-gitee';
 import iconSvgPath from './icon-svg-path';
+import { isRepo } from 'github-url-detection';
 
 const featureId: FeatureId = 'hypercrx-perceptor-tab';
 
@@ -134,19 +135,32 @@ export default defineContentScript({
     const ui = await createIntegratedUi(ctx, {
       position: 'inline',
       anchor: () => {
+        if (!isRepo()) {
+          return document.body;
+        }
         if (isGithub()) {
           return document.querySelector('a#insights-tab')?.parentElement?.parentElement as HTMLElement;
         }
         if (isGitee()) {
           return document.querySelector('a.item[href*="/gitee_go"]')?.parentElement as HTMLElement;
         }
-        return null;
+        // Provide a safe fallback anchor to avoid mount errors when tab elements are not present.
+        // onMount still guards feature execution so nothing will run on unrelated pages.
+        return document.body;
       },
       onMount() {
+        if (!isRepo()) {
+          return;
+        }
         if (isGithub()) return mountGithub();
         if (isGitee()) return mountGitee();
       },
     });
+
+    if (!isRepo()) {
+      return;
+    }
+
     ui.mount();
 
     // We check the DOM on every mutation to ensure we always have the live elements
@@ -178,6 +192,9 @@ export default defineContentScript({
     // GitHub uses Turbo which doesn't trigger a full page reload on navigation, so we need to listen for Turbo events to re-mount our UI
     // Tried using 'wxt:locationchange' but events are triggered before the page updated.
     ctx.addEventListener(document, 'turbo:load', () => {
+      if (!isRepo()) {
+        return;
+      }
       ui.mount();
       const url = window.location.href;
       const perceptorHref = document.querySelector('#hypercrx-perceptor-tab') as HTMLAnchorElement;
