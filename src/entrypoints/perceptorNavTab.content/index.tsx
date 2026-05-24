@@ -1,12 +1,11 @@
 // import { initGithubPerceptorTab } from './github-index';
-import { initGiteePerceptorTab } from './gitee-index';
 import isGithub from '@/helpers/is-github';
 import isGitee from '@/helpers/is-gitee';
 import iconSvgPath from './icon-svg-path';
 
 const featureId: FeatureId = 'hypercrx-perceptor-tab';
 
-const mountGithub = async (container: HTMLElement) => {
+const mountGithub = async () => {
   if (!isGithub()) return;
 
   // find insights tab with id = 'insights-tab'
@@ -75,6 +74,37 @@ const mountGithub = async (container: HTMLElement) => {
   }
 };
 
+const mountGitee = async () => {
+  if (!isGitee()) return;
+
+  const pipelineTab = document.querySelector('a.item[href*="/gitee_go"]') as HTMLAnchorElement | null;
+  if (!pipelineTab) {
+    console.error('Failed to find the pipeline tab to clone');
+    return false;
+  }
+
+  const perceptorTab = pipelineTab.cloneNode(true) as HTMLAnchorElement;
+  perceptorTab.classList.remove('active');
+  const perceptorHref = `${location.pathname}?redirect=perceptor`;
+  perceptorTab.href = perceptorHref;
+  perceptorTab.id = featureId;
+
+  // Replace the icon and text
+  const iconElement = perceptorTab.querySelector('i.iconfont') as HTMLElement;
+  if (iconElement) {
+    iconElement.className = 'iconfont';
+    iconElement.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" style="margin-right: 4px">${iconSvgPath}</svg>`;
+  }
+
+  if (perceptorTab.lastChild) {
+    perceptorTab.lastChild.textContent = 'Perceptor';
+  }
+
+  pipelineTab.before(perceptorTab);
+
+  // TODO: Add dropdown item if needed
+};
+
 /**
  * Synchronizes visibility between two elements based on the visibility of the primary element.
  *
@@ -106,16 +136,15 @@ export default defineContentScript({
           return document.querySelector('a#insights-tab')?.parentElement?.parentElement as HTMLElement;
         }
         if (isGitee()) {
-          return '.users__personal-info';
+          return document.querySelector('a.item[href*="/gitee_go"]')?.parentElement as HTMLElement;
         }
         return null;
       },
       onMount(container) {
         console.log('Mounting Perceptor Tab with container:', container);
         container.id = featureId;
-        if (isGithub()) return mountGithub(container);
-        // TODO: support gitee perceptor tab
-        // if (isGitee()) return mountGitee(container);
+        if (isGithub()) return mountGithub();
+        if (isGitee()) return mountGitee();
       },
     });
     ui.mount();
