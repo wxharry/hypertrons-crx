@@ -23,10 +23,20 @@ export default defineContentScript({
         if (isGithub() && pageDetect.isUserProfile()) {
           return '.js-profile-editable-area';
         }
-        return null;
+        // Return a safe fallback anchor (document.body) instead of null. If the feature
+        // should not run on this page, onMount already guards against running. Returning
+        // body prevents the content script UI from throwing when the profile anchor is
+        // not present.
+        return document.body;
       },
       append: 'after',
       onMount(container) {
+        // Safety guard: ensure running only on GitHub user profile pages. Anchor may be
+        // unreliable in some cases, so double-check here to avoid running on repo pages.
+        if (!isGithub() || !pageDetect.isUserProfile()) {
+          return;
+        }
+
         const userName = getDeveloperName();
         container.id = featureId;
 
