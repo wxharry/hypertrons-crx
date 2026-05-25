@@ -15,7 +15,7 @@ const renderTo = (container: any) => {
   createRoot(container).render(<View repoName={repoName} />);
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   repoName = getRepoName();
   const networksContainer = '#hypercrx-perceptor-slot-repo-networks';
   await elementReady(networksContainer, { stopOnDomReady: false });

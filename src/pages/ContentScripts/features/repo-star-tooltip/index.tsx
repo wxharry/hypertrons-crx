@@ -31,7 +31,7 @@ const getStarButtons = () => {
   return $(starButtonSelectors.join(',')).filter((_, element) => !element.closest('template'));
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   platform = getPlatform();
   repoName = getRepoName();
   await getData();

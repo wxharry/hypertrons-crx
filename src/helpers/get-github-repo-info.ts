@@ -30,6 +30,8 @@ const pickFirstVisible = <T extends HTMLElement>(elements: JQuery<T>) => {
 export function getRepoName() {
   const repoNameByUrl = getRepoNameByUrl();
   const repoNameByPage = getRepoNameByPage();
+  console.log('Repo name by URL:', repoNameByUrl);
+  console.log('Repo name by page:', repoNameByPage);
   if (repoNameByUrl.toLowerCase() === repoNameByPage.toLowerCase()) {
     return repoNameByPage;
   }

@@ -8,6 +8,7 @@ import View from './view';
 import { createRoot } from 'react-dom/client';
 import { getPlatform } from '../../../../helpers/get-platform';
 import isGitee from '../../../../helpers/is-gitee';
+import { isUserProfile } from 'github-url-detection';
 const featureId = features.getFeatureID(import.meta.url);
 let developerName: string;
 let activity: any;
@@ -24,7 +25,8 @@ const renderTo = (container: any) => {
   createRoot(container).render(<View activity={activity} openrank={openrank} meta={meta} />);
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
+  if (!isUserProfile()) return;
   platform = getPlatform();
   developerName = getDeveloperName();
   await getData();

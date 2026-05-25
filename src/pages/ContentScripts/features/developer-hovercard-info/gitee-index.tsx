@@ -121,7 +121,7 @@ const processElement = async (element: Element) => {
   );
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   platform = getPlatform();
   if (isInitialized) return;
   isInitialized = true;

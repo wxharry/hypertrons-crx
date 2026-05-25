@@ -38,7 +38,7 @@ const getData = async () => {
   meta = (await metaStore.get(platform, repoName)) as RepoMeta;
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   platform = getPlatform();
   repoName = getRepoName();
   await getData();

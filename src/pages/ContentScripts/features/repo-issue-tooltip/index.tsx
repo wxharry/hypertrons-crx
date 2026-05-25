@@ -29,14 +29,16 @@ const getData = async () => {
   meta = (await metaStore.get(platform, repoName)) as RepoMeta;
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   repoName = getRepoName();
   platform = getPlatform();
   await getData();
 
   // GitHub 新版仓库导航：使用 data-tab-item="issues" 的导航链接
   await elementReady('a[data-tab-item="issues"]');
-  const $issueTab = $('a[data-tab-item="issues"]');
+  const $issueTab = $('#issues-tab').filter(':visible').first().length
+    ? $('#issues-tab').filter(':visible').first()
+    : $('a[data-tab-item="issues"]').filter(':visible').first();
   const placeholderElement = $('<div class="NativePopover" />').appendTo('body')[0];
   createRoot(placeholderElement).render(
     <NativePopover anchor={$issueTab} width={310} arrowPosition="top-middle">

@@ -37,7 +37,7 @@ const renderTags = (labels: Label[]) => {
   }
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   platform = getPlatform();
   const repoName = getRepoName();
   const labels = await getLabels(repoName);

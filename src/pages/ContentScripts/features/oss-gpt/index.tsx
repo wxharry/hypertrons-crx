@@ -53,7 +53,7 @@ const renderTo = (container: any) => {
   );
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   repoName = getRepoName();
   await getData();
 

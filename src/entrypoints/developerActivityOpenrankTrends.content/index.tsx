@@ -21,7 +21,7 @@ import React from 'react';
 const featureId = 'developer-activity-openrank-trends-gitee';
 
 const mountGithub = async (container: HTMLElement) => {
-  if (!isGithubDeveloperWithMeta()) return;
+  if (!pageDetect.isUserProfile()) return;
 
   const platform = getPlatform();
   const developerName = getDeveloperName();
@@ -39,7 +39,7 @@ const mountGithub = async (container: HTMLElement) => {
 
 // This function is similar to mountGithub, would be better to refactor them to share code
 const mountGitee = async (container: HTMLElement) => {
-  if (!isGiteeDeveloperWithMeta()) return;
+  if (!pageDetect.isUserProfile()) return;
 
   const platform = getPlatform();
   const developerName = getGiteeDeveloperName();

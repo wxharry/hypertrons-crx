@@ -24,7 +24,7 @@ const renderTo = (container: any) => {
   createRoot(container).render(<View repoName={repoName} activity={activity} openrank={openrank} meta={meta} />);
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   platform = getPlatform();
   repoName = getRepoName();
   await getData();

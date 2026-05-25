@@ -54,7 +54,7 @@ const mountTrendRow = (row: HTMLElement) => {
   return true;
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   platform = getPlatform();
   repoName = getRepoName();
   await getData();

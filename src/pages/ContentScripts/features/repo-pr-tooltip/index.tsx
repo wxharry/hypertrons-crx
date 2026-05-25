@@ -53,7 +53,7 @@ const getPullRequestTab = () => {
   return ($visibleTabs.length > 0 ? $visibleTabs : $tabs).first();
 };
 
-const init = async (): Promise<void> => {
+export const init = async (): Promise<void> => {
   platform = getPlatform();
   repoName = getRepoName();
   await getData();

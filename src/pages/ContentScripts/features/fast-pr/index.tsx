@@ -40,7 +40,7 @@ const renderTo = (
   );
 };
 
-const init = async (matchedUrl: MatchedUrl | null) => {
+export const init = async (matchedUrl: MatchedUrl | null) => {
   const existingContainer = document.getElementById(featureId);
   if (existingContainer) {
     existingContainer.remove();
