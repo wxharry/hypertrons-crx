@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import '../../../../helpers/i18n';
 import isGithub from '../../../../helpers/is-github';
+import '../../index.scss';
 const theme = isGithub() ? getGithubTheme() : 'light';
 
 interface Props {

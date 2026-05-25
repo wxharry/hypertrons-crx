@@ -21,6 +21,8 @@ test.describe('content script component: repo header labels', () => {
 
     const headerLabels = page.locator('.hypercrx-inline-label-container .hypercrx-repo-header-label');
     await expect(headerLabels).toHaveCount(3);
+    await expect(page.locator('#activity-header-label')).toHaveCSS('display', 'flex');
+    await expect(page.locator('#activity-header-label')).toHaveCSS('user-select', 'none');
     await expect(page.locator('#activity-header-label')).toHaveCount(1);
     await expect(page.locator('#OpenRank-header-label')).toHaveCount(1);
     await expect(page.locator('#participant-header-label')).toHaveCount(1);
