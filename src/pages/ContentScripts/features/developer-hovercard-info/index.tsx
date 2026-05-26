@@ -6,7 +6,7 @@ import View from './view';
 import { createRoot } from 'react-dom/client';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-developer-hovercard-info';
 let isInitialized = false;
 let platform: string;
 const getDeveloperLatestOpenrank = async (developerName: string): Promise<string | null> => {

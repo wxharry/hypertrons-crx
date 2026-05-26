@@ -10,7 +10,7 @@ import React from 'react';
 import $ from 'jquery';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-star-tooltip';
 let repoName: string;
 let stars: any;
 let meta: RepoMeta;

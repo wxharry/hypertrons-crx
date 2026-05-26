@@ -14,7 +14,7 @@ import { RepoMeta, metaStore } from '../../../../api/common';
 import View from './view';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-activity-openrank-trends';
 let repoName: string;
 let activity: any;
 let openrank: any;

@@ -55,6 +55,11 @@ const loadFeatureManager = async (opts: LoadOptions = {}) => {
   vi.doMock('../../src/helpers/exists', () => ({
     default: (selector: string) => !!document.querySelector(selector),
   }));
+  vi.stubGlobal('browser', {
+    runtime: {
+      getManifest: () => ({ version: 'test' }),
+    },
+  });
 
   const module = await import('../../src/feature-manager');
 

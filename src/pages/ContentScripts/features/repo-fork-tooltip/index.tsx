@@ -11,7 +11,7 @@ import { createRoot } from 'react-dom/client';
 import $ from 'jquery';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-fork-tooltip';
 let repoName: string;
 let forks: any;
 let meta: RepoMeta;

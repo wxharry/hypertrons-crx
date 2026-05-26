@@ -13,7 +13,7 @@ import $ from 'jquery';
 import { createRoot } from 'react-dom/client';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-header-labels';
 let repoName: string;
 let activity: any;
 let openrank: any;

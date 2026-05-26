@@ -5,7 +5,7 @@ import View from './gitee-view';
 import { createRoot } from 'react-dom/client';
 import { getPlatform } from '../../../../helpers/get-platform';
 import isGitee from '../../../../helpers/is-gitee';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-developer-hovercard-info';
 let isInitialized = false;
 let platform: string;
 

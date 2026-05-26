@@ -18,7 +18,7 @@ import $ from 'jquery';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
 
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-pr-tooltip';
 let repoName: string;
 let PRDetail: PRDetail = {
   PROpened: null,

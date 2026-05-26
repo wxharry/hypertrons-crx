@@ -15,7 +15,7 @@ interface DocsMetaItem {
 }
 
 const DOCS_META_DATA_URL = 'https://oss.x-lab.info/hypercrx/docsgpt_active_docs.json';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-oss-gpt';
 let repoName: string;
 let docsMetaData: DocsMetaItem[];
 

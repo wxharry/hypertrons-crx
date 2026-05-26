@@ -18,7 +18,7 @@ import { getPlatform } from '../../../../helpers/get-platform';
 import isGitee from '../../../../helpers/is-gitee';
 import { GiteeNativePopover } from '../../components/GiteeNativePopover';
 
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-pr-tooltip';
 let repoName: string;
 let PRDetail: PRDetail = {
   PROpened: null,

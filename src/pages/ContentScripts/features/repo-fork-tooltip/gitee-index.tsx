@@ -11,7 +11,7 @@ import $ from 'jquery';
 import isGitee from '../../../../helpers/is-gitee';
 import { getPlatform } from '../../../../helpers/get-platform';
 import { GiteeNativePopover } from '../../components/GiteeNativePopover';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-fork-tooltip';
 let repoName: string;
 let forks: any;
 let meta: RepoMeta;

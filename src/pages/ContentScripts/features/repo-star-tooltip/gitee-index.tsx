@@ -10,7 +10,7 @@ import $ from 'jquery';
 import { getPlatform } from '../../../../helpers/get-platform';
 import isGitee from '../../../../helpers/is-gitee';
 import { GiteeNativePopover } from '../../components/GiteeNativePopover';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-star-tooltip';
 let repoName: string;
 let stars: any;
 let meta: RepoMeta;

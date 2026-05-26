@@ -16,11 +16,11 @@ export const defaults = Object.assign(
 
 class OptionsStorage {
   public async getAll(): Promise<HypercrxOptions> {
-    return (await chrome.storage.sync.get(defaults)) as HypercrxOptions;
+    return (await browser.storage.sync.get(defaults)) as HypercrxOptions;
   }
 
   public async set(options: Partial<HypercrxOptions>): Promise<void> {
-    await chrome.storage.sync.set(options);
+    await browser.storage.sync.set(options);
   }
 }
 

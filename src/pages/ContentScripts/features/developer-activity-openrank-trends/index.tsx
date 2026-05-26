@@ -10,7 +10,7 @@ import { createRoot } from 'react-dom/client';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
 import { isUserProfile } from 'github-url-detection';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-developer-activity-openrank-trends';
 let developerName: string;
 let activity: any;
 let openrank: any;

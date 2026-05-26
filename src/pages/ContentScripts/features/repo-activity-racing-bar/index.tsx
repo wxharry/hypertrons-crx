@@ -10,7 +10,7 @@ import { RepoActivityDetails } from './data';
 import { createRoot } from 'react-dom/client';
 import isGithub from '../../../../helpers/is-github';
 import { getPlatform } from '../../../../helpers/get-platform';
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-activity-racing-bar';
 let repoName: string;
 let repoActivityDetails: RepoActivityDetails;
 let platform: string;

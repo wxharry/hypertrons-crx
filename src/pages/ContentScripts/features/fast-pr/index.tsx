@@ -4,7 +4,7 @@ import features from '../../../../feature-manager';
 import View from './view';
 import i18n from '../../../../helpers/i18n';
 
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-fast-pr';
 const t = i18n.t;
 
 interface MatchedUrl {

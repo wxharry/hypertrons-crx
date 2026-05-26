@@ -9,7 +9,7 @@ import { createRoot } from 'react-dom/client';
 import { getRepoName } from '../../../../helpers/get-github-repo-info';
 import isGithub from '../../../../helpers/is-github';
 
-const featureId = features.getFeatureID(import.meta.url);
+const featureId = 'hypercrx-repo-networks';
 let repoName: string;
 const renderTo = (container: any) => {
   createRoot(container).render(<View repoName={repoName} />);

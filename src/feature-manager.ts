@@ -37,7 +37,7 @@ type InternalRunConfig = ShouldRunConditions & {
   init: FeatureInit;
 };
 
-const { version } = chrome.runtime.getManifest();
+const { version } = browser.runtime.getManifest();
 
 const logError = (id: string, error: unknown): void => {
   const message = error instanceof Error ? error.message : String(error);
