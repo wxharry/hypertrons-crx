@@ -7,6 +7,7 @@ declare module "wxt/browser" {
     | "/"
     | "/background.js"
     | "/content-scripts/developerActivityOpenrankTrends.js"
+    | "/content-scripts/developerHovercardInfo.js"
     | "/content-scripts/developerNetworks.js"
     | "/content-scripts/gitee.js"
     | "/content-scripts/github.js"

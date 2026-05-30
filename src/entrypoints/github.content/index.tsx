@@ -14,7 +14,6 @@ export default defineContentScript({
       import('../../pages/ContentScripts/features/repo-activity-openrank-trends'),
       import('../../pages/ContentScripts/features/repo-networks'),
       import('../../pages/ContentScripts/features/oss-gpt'),
-      import('../../pages/ContentScripts/features/developer-hovercard-info'),
     ]);
   },
 });

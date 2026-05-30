@@ -1,38 +1,29 @@
-import features from '../../../../feature-manager';
-import { getOpenrank } from '../../../../api/developer';
+import { getOpenrank } from '../../api/developer';
 import elementReady from 'element-ready';
 import React from 'react';
-import View from './view';
+import View from '../../pages/ContentScripts/features/developer-hovercard-info/view';
 import { createRoot } from 'react-dom/client';
-import isGithub from '../../../../helpers/is-github';
-import { getPlatform } from '../../../../helpers/get-platform';
-const featureId = 'hypercrx-developer-hovercard-info';
-let isInitialized = false;
+import { getPlatform } from '../../helpers/get-platform';
+
 let platform: string;
+
 const getDeveloperLatestOpenrank = async (developerName: string): Promise<string | null> => {
   const data = await getOpenrank(platform, developerName);
   if (data) {
-    // filter YYYY-MM
     const monthKeys = Object.keys(data).filter((key) => /^\d{4}-\d{2}$/.test(key));
-
     if (monthKeys.length === 0) {
       return null;
     }
-
     monthKeys.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-
     const latestMonthKey = monthKeys[monthKeys.length - 1];
-
     return data[latestMonthKey];
   }
-
   return null;
 };
 
 const getDeveloperName = (target: HTMLElement): string | null => {
   const hovercardUrlAttribute = target.getAttribute('data-hovercard-url');
   if (!hovercardUrlAttribute) return null;
-
   const matches = hovercardUrlAttribute.match(/\/users\/([^/]+)(?:\/hovercard)?/);
   return matches ? matches[1] : null;
 };
@@ -86,13 +77,6 @@ const renderTo = (container: HTMLElement, developerName: string, openrank: strin
   createRoot(openRankContainer).render(<View developerName={developerName} openrank={openrank} />);
 };
 
-const elementReadyWithTimeout = async (selector: string, options: { stopOnDomReady: boolean }, timeout: number) => {
-  return Promise.race([
-    elementReady(selector, options),
-    new Promise((_, reject) => setTimeout(() => reject(new Error(`Timeout waiting for ${selector}`)), timeout)),
-  ]);
-};
-
 const processElement = (element: Element) => {
   const hovercardUrl = element.getAttribute('data-hovercard-url');
   if (!hovercardUrl || !hovercardUrl.startsWith('/users')) {
@@ -141,45 +125,41 @@ const processElement = (element: Element) => {
   });
 };
 
-export const init = async (): Promise<void> => {
-  platform = getPlatform();
-  if (isInitialized) return;
-  isInitialized = true;
+export default defineContentScript({
+  matches: ['*://*.github.com/*'],
+  runAt: 'document_end',
+  async main() {
+    platform = getPlatform();
+    const hovercardSelector = '[data-hovercard-url]';
 
-  const hovercardSelector = '[data-hovercard-url]';
-
-  await elementReady(hovercardSelector, { stopOnDomReady: false });
-  try {
-    await elementReadyWithTimeout('[data-testid=github-avatar]', { stopOnDomReady: false }, 1500);
-  } catch (error) {
-    console.log('The current interface does not have data-testid=github-avatar information');
-  }
-
-  // Initial processing of existing elements
-  document.querySelectorAll(hovercardSelector).forEach(processElement);
-
-  // Use MutationObserver to monitor dynamically added elements
-  const observer = new MutationObserver((mutationsList) => {
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'childList') {
-        mutation.addedNodes.forEach((node) => {
-          if (node instanceof HTMLElement) {
-            const newElements = node.querySelectorAll(hovercardSelector);
-            newElements.forEach(processElement);
-          }
-        });
-      }
+    await elementReady(hovercardSelector, { stopOnDomReady: false });
+    try {
+      await Promise.race([
+        elementReady('[data-testid=github-avatar]', { stopOnDomReady: false }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 1500)),
+      ]);
+    } catch (error) {
+      console.log('The current interface does not have data-testid=github-avatar information');
     }
-  });
 
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
-};
+    document.querySelectorAll(hovercardSelector).forEach(processElement);
 
-features.add(featureId, {
-  asLongAs: [isGithub],
-  awaitDomReady: false,
-  init,
+    const observer = new MutationObserver((mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              const newElements = node.querySelectorAll(hovercardSelector);
+              newElements.forEach(processElement);
+            }
+          });
+        }
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  },
 });
