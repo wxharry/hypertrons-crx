@@ -17,7 +17,6 @@ import './features/repo-networks';
 import './features/oss-gpt';
 import './features/repo-activity-racing-bar';
 import './features/repo-activity-racing-bar/gitee-index';
-import './features/developer-hovercard-info';
 import './features/developer-hovercard-info/gitee-index';
 import './features/repo-sidebar-labels';
 import './features/repo-sidebar-labels/gitee-index';

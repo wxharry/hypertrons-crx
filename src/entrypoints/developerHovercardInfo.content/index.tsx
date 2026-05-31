@@ -20,7 +20,7 @@ const getDeveloperLatestOpenrank = async (developerName: string): Promise<string
 };
 
 export default defineContentScript({
-  matches: ['*://*.github.com/*'],
+  matches: ['*://github.com/*'],
   runAt: 'document_end',
   async main(ctx) {
     const ui = createIntegratedUi(ctx, {
