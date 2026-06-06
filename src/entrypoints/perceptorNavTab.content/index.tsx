@@ -3,6 +3,7 @@ import isGithub from '@/helpers/is-github';
 import isGitee from '@/helpers/is-gitee';
 import iconSvgPath from './icon-svg-path';
 import { isRepo } from 'github-url-detection';
+import { isFeatureEnabled } from '../../features.config';
 
 const featureId: FeatureId = 'hypercrx-perceptor-tab';
 
@@ -132,6 +133,8 @@ export default defineContentScript({
   matches: ['*://*.github.com/*', '*://*.gitee.com/*'],
   runAt: 'document_end',
   async main(ctx) {
+    if (!(await isFeatureEnabled(featureId))) return;
+
     const ui = await createIntegratedUi(ctx, {
       position: 'inline',
       anchor: () => {

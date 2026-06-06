@@ -3,6 +3,7 @@ import React from 'react';
 import View from '../../pages/ContentScripts/features/developer-hovercard-info/view';
 import { createRoot } from 'react-dom/client';
 import { getPlatform } from '../../helpers/get-platform';
+import { isFeatureEnabled } from '../../features.config';
 
 const getDeveloperLatestOpenrank = async (developerName: string): Promise<string | null> => {
   const platform = getPlatform();
@@ -23,6 +24,9 @@ export default defineContentScript({
   matches: ['*://github.com/*'],
   runAt: 'document_end',
   async main(ctx) {
+    const featureId: FeatureId = 'hypercrx-developer-hovercard-info';
+    if (!(await isFeatureEnabled(featureId))) return;
+
     const ui = createIntegratedUi(ctx, {
       position: 'inline',
       anchor: 'section[aria-label="User login and name"]',

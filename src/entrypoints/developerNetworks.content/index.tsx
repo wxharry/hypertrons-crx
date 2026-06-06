@@ -5,6 +5,7 @@ import * as pageDetect from 'github-url-detection';
 import { getDeveloperName } from '../../helpers/get-github-developer-info';
 import View from './view';
 import isGithub from '../../helpers/is-github';
+import { isFeatureEnabled } from '../../features.config';
 
 const featureId = 'hypercrx-developer-networks';
 
@@ -17,6 +18,8 @@ export default defineContentScript({
   matches: ['*://*.github.com/*'],
   runAt: 'document_end',
   async main(ctx) {
+    if (!(await isFeatureEnabled(featureId))) return;
+
     const ui = createIntegratedUi(ctx, {
       position: 'inline',
       anchor: () => {

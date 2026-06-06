@@ -81,7 +81,7 @@ const checkCacheAndInit = (url: string) => {
   iframePostMessage('requestMatchedUrl', null, url);
 };
 
-chrome.runtime.onMessage.addListener((message) => {
+browser.runtime.onMessage.addListener((message) => {
   if (message.type === 'urlChanged') {
     handleUrlChange(message.url);
   }
@@ -111,7 +111,7 @@ features.add(featureId, {
   init: async () => {
     const iframe = document.createElement('iframe');
     iframe.id = 'sandboxFrame';
-    iframe.src = chrome.runtime.getURL('sandbox.html');
+    iframe.src = browser.runtime.getURL('/sandbox.html');
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
     iframe.onload = () => {

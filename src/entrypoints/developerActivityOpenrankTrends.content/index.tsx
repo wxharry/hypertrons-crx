@@ -17,6 +17,7 @@ import isGithub from '../../helpers/is-github';
 import isGitee from '../../helpers/is-gitee';
 import { getPlatform } from '../../helpers/get-platform';
 import React from 'react';
+import { isFeatureEnabled } from '../../features.config';
 
 const featureId = 'developer-activity-openrank-trends-gitee';
 
@@ -67,6 +68,10 @@ export default defineContentScript({
   matches: ['*://*.github.com/*', '*://*.gitee.com/*'],
   runAt: 'document_end',
   async main(ctx) {
+    // Use canonical feature id for new FeatureConfigs, fall back to gitee variant for legacy
+    const optionKey: FeatureId = 'hypercrx-developer-activity-openrank-trends';
+    if (!(await isFeatureEnabled(optionKey))) return;
+
     const ui = await createIntegratedUi(ctx, {
       position: 'inline',
       anchor: () => {

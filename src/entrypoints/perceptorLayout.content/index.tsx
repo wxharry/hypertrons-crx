@@ -6,6 +6,7 @@ import View from './view';
 import isGithub from '../../helpers/is-github';
 import isGitee from '../../helpers/is-gitee';
 import isPerceptor from '../../helpers/is-perceptor';
+import { isFeatureEnabled } from '../../features.config';
 
 const featureId = 'hypercrx-perceptor-layout';
 
@@ -18,6 +19,8 @@ export default defineContentScript({
   matches: ['*://*.github.com/*', '*://*.gitee.com/*'],
   runAt: 'document_end',
   async main(ctx) {
+    if (!(await isFeatureEnabled(featureId))) return;
+
     const ui = createIntegratedUi(ctx, {
       position: 'inline',
       anchor: () => {

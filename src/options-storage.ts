@@ -1,4 +1,5 @@
 import { importedFeatures } from './imported-features';
+import { FeatureConfigs } from './features.config';
 
 export type HypercrxOptions = typeof defaults;
 
@@ -6,12 +7,13 @@ export const defaults = Object.assign(
   {
     locale: 'en',
   },
-  Object.fromEntries(
-    importedFeatures.map((name) => [
+  Object.fromEntries([
+    ...importedFeatures.map((name) => [
       `hypercrx-${name}` as FeatureId,
-      name === 'oss-gpt' ? false : true, // Set oss gpt to not be enabled by default
-    ])
-  )
+      name === 'oss-gpt' ? false : true, // Set oss gpt to disabled by default
+    ]),
+    ...FeatureConfigs.map((fc) => [fc.id as FeatureId, fc.enabled]),
+  ])
 );
 
 class OptionsStorage {

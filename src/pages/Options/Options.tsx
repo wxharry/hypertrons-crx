@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Checkbox, Radio, Space, Row, Col } from 'antd';
 import { importedFeatures } from '../../imported-features';
+import { FeatureConfigs, FeatureConfig } from '../../features.config';
 import optionsStorage, { HypercrxOptions } from '../../options-storage';
 import { HYPERCRX_GITHUB } from '../../constant';
 import TooltipTrigger from '../../components/TooltipTrigger';
@@ -30,7 +31,7 @@ const Options = (): JSX.Element => {
   const { t, i18n } = useTranslation();
   useEffect(() => {
     (async function () {
-      setVersion((await chrome.management.getSelf()).version);
+      setVersion((await browser.management.getSelf()).version);
       setOptions(await optionsStorage.getAll());
     })();
   }, []);
@@ -51,6 +52,25 @@ const Options = (): JSX.Element => {
       >
         {name}
       </Checkbox>
+    );
+  }
+
+  function buildFeatureConfigCheckbox(config: FeatureConfig) {
+    const key = config.id;
+    const checked = options?.[key] ?? config.enabled;
+    return (
+      <div>
+        <Checkbox
+          defaultChecked={checked}
+          onChange={async (e) => {
+            await optionsStorage.set({ [key]: e.target.checked });
+            setOptions(await optionsStorage.getAll());
+          }}
+        >
+          {config.name}
+        </Checkbox>
+        <div style={{ color: '#666', fontSize: 12 }}>{config.description}</div>
+      </div>
     );
   }
 
@@ -115,6 +135,11 @@ const Options = (): JSX.Element => {
               <Row style={stacksStyleOptions.settingStack} gutter={[16, 10]}>
                 <p>{t('options_components_toolTip')} :</p>
 
+                {FeatureConfigs.map((fc: FeatureConfig) => (
+                  <Col span={24} key={fc.id}>
+                    {buildFeatureConfigCheckbox(fc)}
+                  </Col>
+                ))}
                 {importedFeatures.map((name: FeatureName) => (
                   <Col span={24} key={name}>
                     {buildFeatureCheckbox(name, options[`hypercrx-${name}`])}
